@@ -1,24 +1,24 @@
 ---
 pageable: true
-per_page: 10
+per_page: 5
+title: Blog Posts
+layout: layouts/blog
 ---
-<% if paginate && num_pages > 1 %>
-  <p>Page <%= page_number %> of <%= num_pages %></p>
-
-  <% if prev_page %>
-    <p><%= link_to 'Previous page', prev_page %></p>
-  <% end %>
-<% end %>
-
 <% page_articles.each_with_index do |article, i| %>
-  <h2><%= link_to article.title, article %> <span><%= article.date.strftime('%b %e') %></span></h2>
-  <!-- use article.summary(250) if you have Nokogiri available to show just
-       the first 250 characters -->
-  <%= article.body %>
+  <%= partial('partials/post', :locals => { :post_url => article.url, :post_title => article.title, :post_date => article.date.time, :post_tags => article.tags, :post_author => article.data.author, :post_author_github_handle => article.data.author_github_handle, :post_body => article.body }) %>
 <% end %>
 
-<% if paginate %>
-  <% if next_page %>
-    <p><%= link_to 'Next page', next_page %></p>
+<div class="pagination">
+  <% if prev_page %>
+    <a class="previous" href="<%= prev_page.url %>">Newer</a>
+  <% else %>
+    <span class="previous">Newer</span>
   <% end %>
-<% end %>
+  <span class="page_number"><%= page_number %> of <%= num_pages %></span>
+  <% if next_page %>
+    <a class="next" href="<%= next_page.url %>">Older</a>
+  <% else %>
+    <span class="next">Older</span>
+  <% end %>
+</div>
+

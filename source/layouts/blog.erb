@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= current_article.title unless current_article.nil? %> - boxci</title>
+    <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
+    <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
+    <%= stylesheet_link_tag 'application.css' %>
+  </head>
+  <body>
+    <%= partial 'partials/main_nav' %>
+
+    <div id="main" role="main">
+      <div class="container" style="text-align: center;">
+        <%= yield %>
+      </div>
+    </div>
+
+    <%= partial 'partials/footer' %>
+    <%= javascript_include_tag 'application.js' %>
+  </body>
+</html>

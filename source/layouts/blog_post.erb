@@ -1,0 +1,3 @@
+<% wrap_layout :blog do %>
+  <%= partial('partials/post', :locals => { :post_url => current_page.url, :post_title => current_page.data.title, :post_date => Time.parse(current_page.data.date.to_s), :post_tags => current_page.tags, :post_author => current_page.data.author, :post_author_github_handle => current_page.data.author_github_handle, :post_body => yield }) %>
+<% end %>

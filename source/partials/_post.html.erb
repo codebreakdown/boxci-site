@@ -1,0 +1,30 @@
+<article class='blog-post'>
+  <header>
+    <h1 class='title'><a href="<%= post_url %>"><%= post_title %></a></h1>
+    <div class='posted-info'>
+      <time datetime="<%= post_date.strftime('%FT%T%:z') %>" pubdate="pubdate" class="published-datetime"><%= post_date.strftime('%B %e, %Y') %></time>
+      <span>by</span>
+      <% if post_author %>
+        <% if post_author_github_handle %>
+          <a href="http://github.com/<%= post_author_github_handle %>"><%= post_author %> (@<%= post_author_github_handle %>)</a>
+        <% else %>
+          <span><%= post_author %></span>
+        <% end %>
+      <% else %>
+        <a href="http://github.com/cyphactor">Andrew De Ponte (@cyphactor)</a>
+      <% end %>
+    </div>
+  </header>
+
+  <section>
+    <%= post_body %> 
+    <div style="clear: both;"></div>
+  </section>
+
+  <footer>
+    <% post_tags.each do |current_tag| %>
+      <a class="tag" href="<%= tag_path(current_tag) %>"><%= current_tag %></a>
+    <% end %>
+  </footer>
+  <hr>
+</article>
