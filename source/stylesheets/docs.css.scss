@@ -1,0 +1,52 @@
+
+.docs h1 {
+}
+
+.docs h2 {
+}
+
+.docs h3 {
+}
+
+.docs h4 {
+}
+
+.docs h5 {
+}
+
+.docs h6 {
+}
+
+.side-module ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+.side-module ul li {
+  border-top-color: #efefef;
+  border-top-style: solid;
+  border-top-width: 1px;
+  padding-left: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.side-module h2 {
+  padding-left: 10px;
+  text-transform: uppercase;
+  color: #939393;
+  font-size: 16px;
+}
+
+.side-module .item {
+  border-top-color: #efefef;
+  border-top-style: solid;
+  border-top-width: 1px;
+  padding-left: 10px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.docs a:hover {
+  color: #db631b;
+}
