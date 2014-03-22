@@ -20,6 +20,19 @@
     <div id="main" role="main">
       <div class="container">
         <%= yield %>
+        <div class="pagination container">
+          <div class="previous_container">
+            <% if prev_page %>
+              <a class="previous" href="<%= prev_page.url %>">Newer</a>
+            <% end %>
+          </div>
+          <div class="next_container">
+            <% if next_page %>
+              <a class="next" href="<%= next_page.url %>">Older</a>
+            <% end %>
+          </div>
+          <div style="clear: both;"></div>
+        </div>
       </div>
     </div>
 
