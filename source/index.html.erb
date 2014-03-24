@@ -1,9 +1,0 @@
----
-pageable: true
-per_page: 5
-title: Blog Posts
-layout: layouts/blog
----
-<% page_articles.each_with_index do |article, i| %>
-  <%= partial('partials/post', :locals => { :post_url => article.url, :post_title => article.title, :post_date => article.date.time, :post_tags => article.tags, :post_author => article.data.author, :post_author_github_handle => article.data.author_github_handle, :post_body => article.body }) %>
-<% end %>
