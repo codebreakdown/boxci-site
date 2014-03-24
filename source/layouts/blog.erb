@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <% if !current_article.nil? %>
+      <title><%= current_article.title %> - boxci</title>
+    <% else %>
+      <title>Blog - boxci</title>
+    <% end %>
+    <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
+    <%= feed_tag :atom, "#{blog.options.prefix.to_s}/feed.xml", title: "Atom Feed" %>
+    <%= stylesheet_link_tag 'application.css' %>
+    <%= stylesheet_link_tag 'rouge.css' %>
+  </head>
+  <body>
+    <%= partial 'partials/main_nav' %>
+
+    <div id="main" role="main">
+      <div class="container">
+        <%= yield %>
+        <% if paginate %>
+        <div class="pagination container">
+          <div class="previous_container">
+            <% if prev_page %>
+              <a class="previous" href="<%= prev_page.url %>">Newer</a>
+            <% end %>
+          </div>
+          <div class="next_container">
+            <% if next_page %>
+              <a class="next" href="<%= next_page.url %>">Older</a>
+            <% end %>
+          </div>
+          <div style="clear: both;"></div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%= partial 'partials/footer' %>
+    <%= javascript_include_tag 'application.js' %>
+  </body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Documentation</title>
+    <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+    <link href="/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/rouge.css" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-default nav-bar-static-top" role="navigation" style="margin-bottom: 0px;">
+  <div class="container">
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/">Blog</a></li>
+      <li><a href="/docs">Documentation</a></li>
+    </ul>
+    <a class="navbar-brand" href="/">
+      <img src="/images/boxci-logo-sm.png" style="height: 40px; margin-top: -10px;" alt="boxci logo">
+    </a>
+  </div>
+</nav>
+
+
+    <div id="main" role="main" class="docs">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8">
+            <h1>Configuring your build</h1>
+
+<h3>What This Guide Covers</h3>
+
+<p>This guide covers build environment and configuration topics common to all
+projects managed with BoxCI, regardless of the technology. We recommend you
+start with the <a href="/doc/getting_started.html">Getting Started</a> guide and read
+this guide completely before moving on to any of the more targeted guides.</p>
+
+<h2>.boxci.yml file: what it is and how it works</h2>
+
+<p>BoxCI uses <code>.boxci.yml</code> file in the root of your repository to learn about
+your project and how you want your builds to be executed. Your <code>.boxci.yml</code>
+can be extremely minimalistic or have a lot of customization in it. A few
+examples of the types of information your <code>.boxci.yml</code> file may contain:</p>
+
+<ul>
+<li>What programming language your project uses</li>
+<li>What commands or scripts you want to be executed before each build, maybe to
+install your projects dependencies</li>
+<li>What commands are used to run your test suites and produce any artifacts</li>
+</ul>
+
+<p>and a ton more.</p>
+
+<p>At a minimum, BoxCI needs to know what language and therefore builder to use
+for your project: ruby, java, or something else. For everything else there are
+reasonable defaults.</p>
+
+<h2>Build Lifecycle</h2>
+
+<p>By default the worker performs the build as follows:</p>
+
+<ol>
+<li>Prepare project archive, spin up virtual machine, and deliver project
+archive</li>
+<li>Extract project archive and <code>cd</code> to project root</li>
+<li>Run <code>before_install</code> commands
+
+<ul>
+<li>Use this to prepare the system to install prerequisites or dependencies</li>
+<li>e.g. <code>sudo apt-get update</code></li>
+</ul></li>
+<li>Run <code>install</code> commands
+
+<ul>
+<li>Use this to install any prerequisites or dependencies necessary to run
+your build</li>
+</ul></li>
+<li>Run <code>before_script</code> commands
+
+<ul>
+<li>Use this to prepare your build for testing</li>
+<li>e.g. copy database configurations, environment variables, etc.</li>
+</ul></li>
+<li>Run <code>script</code> commands
+
+<ul>
+<li>Default is specific to the project language</li>
+<li>All commands must exit with code 0 on success. Anything else is considered
+failure.</li>
+</ul></li>
+<li>Run <code>after_success</code> or <code>after_failure</code> commands</li>
+<li>Run <code>after_script</code> commands</li>
+</ol>
+
+<p>The <code>before_install</code>, <code>install</code>, and <code>before_script</code> commands <strong>will</strong>
+short-circuit the build if they <strong>exit with a non-zero value</strong>.</p>
+
+<p>The <code>script</code> commands will <strong>not</strong> short-circuit the build process if they
+fail. The reason for this is that when you are running your entire test suite
+and one of your high level acceptance tests fails, it can be extremely
+valuable to also see any of your isolated tests that fail as it is likely they
+are related.</p>
+
+<p>The <code>after_success</code>, <code>after_failure</code>, and <code>after_script</code> commands will <strong>not</strong>
+short-circuit the build process if they fail.</p>
+
+<p>The outcome of any of these commands (except <code>after_success</code>, <code>after_failure</code>,
+or <code>after_script</code>) indicates whether or not this build has failed or passed.
+The standard Unix <strong>exit code of &ldquo;0&rdquo; means the build passed; everything else
+is treated as failure.</strong></p>
+
+<p>Test result is exposed to <code>BOXCI_TEST_RESULT</code>, which you can use in
+<code>after_script</code> commands.</p>
+
+<p>With the exception of steps 1 &amp; 2 from the above build cycle, and a few
+language based build steps, all of the above steps can be tweaked with
+<code>.boxci.yml</code>.</p>
+
+<h3>BoxCI Preserves No State Between Builds</h3>
+
+<p>BoxCI spins up a fresh virtual machine each build to make sure no state is
+shared across bulids. If you modify your CI environment during a build by
+adding files, installing things, etc. Those changes will not persist or the
+next build.</p>
+
+<h2>Define custom build lifecycle commands</h2>
+
+<h3>Overview</h3>
+
+<p>BoxCI runs all commands over SSH in isolated virtual machines.</p>
+
+<h3>script</h3>
+
+<p>You can specify the main build command to run instead of the default</p>
+<pre class="highlight yaml"><span class="s">script</span><span class="pi">:</span> <span class="s2">"</span><span class="s">./run-tests.sh"</span>
+</pre>
+<p>The script can be an executable; it doesn&rsquo;t have to be <code>make</code>. The only
+requirement for the script is that it <strong>should use an exit code 0 on success,
+anything else is considered build failure</strong>. It should also either output any
+important information to the console so that results can be viewed (in real
+time!).</p>
+
+<p>This setting supports multiple lines as follows:</p>
+<pre class="highlight yaml"><span class="s">script</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">bundle exec rspec spec</span>
+  <span class="pi">-</span> <span class="s">bundle exec cucumber</span>
+</pre>
+<h3>before_script, after_script</h3>
+
+<p>You can also define scripts to be run before and after the main script:</p>
+<pre class="highlight yaml"><span class="s">before_script</span><span class="pi">:</span> <span class="s">some_command</span>
+<span class="s">after_script</span><span class="pi">:</span> <span class="s">some_other_command</span>
+</pre>
+<p>Similar to <code>script</code> both these settings support multiple lines as follows:</p>
+<pre class="highlight yaml"><span class="s">before_script</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">before_command</span>
+  <span class="pi">-</span> <span class="s">another_before_command</span>
+<span class="s">after_script</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">after_command</span>
+  <span class="pi">-</span> <span class="s">another_after_command</span>
+</pre>
+<p>These settings can be extremely useful for doing things like setting up a
+database for the test suite, etc.</p>
+
+<h3>install</h3>
+
+<p>If your project uses non-standard dependency management tools or you have some
+other special situation you can add additional dependency installation
+commands using the <code>install</code> option:</p>
+<pre class="highlight yaml"><span class="s">install</span><span class="pi">:</span> <span class="s">ant install-deps</span>
+</pre>
+<p>As with other scripts, <code>install</code> command can be anything but has to exit 0
+status in order to be considered successful. Also note, it supports multiple
+lines as follows:</p>
+<pre class="highlight yaml"><span class="s">install</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">ant install-deps</span>
+  <span class="pi">-</span> <span class="s">some other dependency install</span>
+</pre>
+<h3>before_install</h3>
+
+<p>You can also define scripts to be run before the dependency installation
+(<code>install</code>):</p>
+<pre class="highlight yaml"><span class="s">before_install</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">before_command</span>
+  <span class="pi">-</span> <span class="s">another_before_command</span>
+</pre>
+<p><code>before_install</code> could be used to update git repository submodules, update
+package system caches, etc.</p>
+
+<h2>Choose runtime versions</h2>
+
+<p>One of the key features of BoxCI is the ease of running your test suite
+against multiple runtimes and versions. Since there is no way for BoxCI to
+magically know what runtimes and versions to test against, you must specify
+them in your <code>.boxci.yml</code> file. The options used for this varies depending on
+languages.</p>
+
+<p>This feature is extremely valuable when you are testing libraries, command
+line tools, or anything that would potentially be running in/against a number
+of different environments.</p>
+
+<p>Here are some examples for various languages:</p>
+
+<h3>Ruby</h3>
+
+<p>Currently BoxCI supports Ruby versions using
+<a href="https://github.com/sstephenson/rbenv">rbenv</a>. To test against multiple Ruby
+versions you would do the following:</p>
+<pre class="highlight yaml"><span class="s">rbenv</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">2.1.1</span>
+  <span class="pi">-</span> <span class="s">2.1.0</span>
+  <span class="pi">-</span> <span class="s">1.9.3-p327</span>
+</pre>
+          </div>
+
+          <aside class="col-sm-3 col-sm-offset-1">
+            <div class="side-module">
+              <h2>Guides</h2>
+              <ul>
+                <li><a href="/docs/guides/getting_started.html">Getting Started</a></li>
+                <!-- <li><a href="#">Validate your .boxci.yml</a></li> -->
+                <!-- <li><a href="#">Headless Testing with Browsers</a></li> -->
+              </ul>
+            </div>
+
+            <div class="side-module">
+              <h2>References</h2>
+              <ul>
+                <li><a href="/docs/references/build_configuration.html">Build configuration</a></li>
+                <li><a href="#">The CI Environment</a></li>
+                <li><a href="#">Command Line Interface</a></li>
+                <!-- <li><a href="#">Common Build Problems</a></li> -->
+              </ul>
+            </div>
+
+            <div class="side-module">
+              <h2>Language-Specific Guides</h2>
+              <ul>
+                <li><a href="#">Ruby</a></li>
+                <!-- <li><a href="#">Java</a></li> -->
+              </ul>
+            </div>
+
+            <div class="side-module">
+              <h2>Developer Guides</h2>
+              <ul>
+                <li><a href="#">How it Works</a></li>
+                <li><a href="#">Contribiting Code</a></li>
+              </ul>
+            </div>
+
+            <div class="side-module">
+              <h2>Contact</h2>
+              <ul>
+                <li><a href="irc://chat.freenode.net/%23boxci">IRC</a></li>
+              </ul>
+            </div>
+
+            <div class="side-module">
+              <h2>Contributing</h2>
+              <p class="item">This documentation site is open source. Feel free to <a href="http://github.com/reachlocal/boxci-site/issues">file issues about it</a>. The README in our <a href="http://github.com/reachlocal/boxci-site">Git repository</a> explains how to contribute.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+    
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-4">
+        <div class="copyright_and_logo">
+          <a href="http://reachlocal.com" style="display: block; float: left;">
+            <img src="/images/reachlocal_logo.png" style="height: 50px;" alt="ReachLocal Inc. Logo">
+          </a>
+          <div style="float: left; margin-left: 20px; margin-top: 17px;">
+            &copy; ReachLocal Inc.
+          </div>
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+
+      <div style="margin-top: 17px;">
+        <div class="col-xs-4">
+        </div>
+
+        <div class="col-xs-1">
+          <ul>
+            <li><a href="irc://chat.freenode.net/%23boxci">IRC</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-1">
+          <ul>
+            <li><a href="http://github.com/reachlocal/boxci">GitHub</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-1">
+          <ul>
+            <li><a href="http://github.com/reachlocal/boxci/issues">Issues</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-1">
+          <ul>
+            <li><a href="/feed.xml">Blog Feed</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/javascripts/application.js" type="text/javascript"></script>
+  </body>
+</html>

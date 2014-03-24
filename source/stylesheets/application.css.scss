@@ -1,0 +1,42 @@
+@import "bootstrap";
+@import "docs";
+
+body {
+  background-color: #f5f5f5;
+}
+
+#main {
+  padding-top: 20px;
+  background-color: #ffffff;
+  padding-bottom: 20px;
+}
+
+footer {
+  padding: 20px;
+}
+
+footer ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+.posted-info {
+  color: #aaa;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.posted-info ul {
+  list-style-type: circle;
+  list-style-position: inside;
+  padding-left: 0px;
+}
+
+.previous_container {
+  float: left;
+}
+
+.next_container {
+  float: right;
+}
