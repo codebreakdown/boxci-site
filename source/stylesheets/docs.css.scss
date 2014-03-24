@@ -64,3 +64,17 @@
 .docs a:hover {
   color: #db631b;
 }
+
+.getting_started_button {
+  padding: 10px;
+  font-size: 23px;
+  background-color: #f37021;
+  border-radius: 5px;
+  color: white;
+}
+
+a.getting_started_button:hover {
+  color: white;
+  text-decoration: none;
+  background-color: #f37021;
+}
