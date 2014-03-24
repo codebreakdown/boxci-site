@@ -20,6 +20,7 @@
     <div id="main" role="main">
       <div class="container">
         <%= yield %>
+        <% if paginate %>
         <div class="pagination container">
           <div class="previous_container">
             <% if prev_page %>
@@ -33,6 +34,7 @@
           </div>
           <div style="clear: both;"></div>
         </div>
+        <% end %>
       </div>
     </div>
 

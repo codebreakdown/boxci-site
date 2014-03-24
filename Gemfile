@@ -13,3 +13,5 @@ gem "builder", "~> 3.0"
 
 gem "redcarpet", "~> 3.1"
 gem "pygments.rb", "~> 0.5"
+
+gem 'middleman-gh-pages', '~> 0.0.3'
