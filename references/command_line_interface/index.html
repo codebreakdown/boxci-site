@@ -28,30 +28,76 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-8" id="documentation_body">
-            <h1>Archive for
-  
-    Jan  1 2012
-  
-</h1>
+            <h1 id="command-line-interface">Command Line Interface</h1>
 
-  <p>Page 2 of 2</p>
+<p>This reference documents the <code>boxci</code> command line interface, what the
+intended uses of various commands are, as well as all of the options.</p>
 
-  
-    <p><a href="/2012/01/01.html">Previous page</a></p>
-  
+<h2 id="boxci-init">boxci init</h2>
 
-<ul>
-  
-    <li><a href="/2012/01/01/example-article-far.html">Example Article</a> <span>Jan  1</span></li>
-  
-    <li><a href="/2012/01/01/example-article-car.html">Example Article</a> <span>Jan  1</span></li>
-  
-    <li><a href="/2012/01/01/example-article-bar.html">Example Article</a> <span>Jan  1</span></li>
-  
-</ul>
+<p>To use BoxCI with your project you need to run the <code>boxci init &lt;language&gt;</code>
+command. This command will create an initial <code>.boxci.yml</code> config for you in
+the current working directory. Therefore, you should run this command from the
+root of your project. It will also handle creating your user level <code>boxci</code>
+configurations in the <code>~/.boxci</code> directory. An example of this can be seen as
+follows:</p>
+<pre class="highlight plaintext">$ boxci init ruby
+</pre>
+<p><em>Note:</em> The above will create user level configs using the default provider
+<code>virtualbox</code>. If you want to use <code>boxci</code> always with a cloud provider simply
+rerun the <code>init</code> command specifying one of the supported providers. The
+following is an example:</p>
+<pre class="highlight plaintext">$ boxci init -p openstack ruby
+</pre>
+<p>This will go through and setup the proper directory structure and create the
+config files just as before. However, when it identifies conflicts with the
+existing files it will prompt you and ask you if you want to overwrite, diff
+the files, not overwrite, etc.</p>
 
-  
+<p>This means that you can rerun the command over and over again and not worry
+about it overwriting your configs unless you tell it too. This is also useful
+in the scenarios where a new version of <code>boxci</code> has come out and added config
+options because then you can rerun it and choose to diff them to see what was
+added.</p>
 
+<h2 id="boxci-build">boxci build</h2>
+
+<p>To build your initial BoxCI environment you run the following:</p>
+<pre class="highlight plaintext">$ boxci build
+</pre>
+<p>This will build your initial Puppet hiearchy, Puppet manifests, and your
+projects Vagrantfile. It does this by looking at your <code>.boxci.yml</code> and
+gathering information to build you the best initial environment configuration
+possible. It takes no addition options.</p>
+
+<h2 id="boxci-test">boxci test</h2>
+
+<p>To run your automated test suite in the cloud or locally in a <code>boxci</code> managed
+virtual machine simply run the following from the project&rsquo;s root directory.</p>
+<pre class="highlight plaintext">$ boxci test
+</pre>
+<p>To see more output on what is happening, pass the &ldquo;-v&rdquo; flag for verbose:</p>
+<pre class="highlight plaintext">$ boxci test -v
+</pre>
+<p>For details on other options you can set for test runs run the following
+command:</p>
+<pre class="highlight plaintext">$ boxci help test
+</pre>
+<h2 id="boxci-help">boxci help</h2>
+
+<p><code>boxci</code> provides a useful help system within the command line tool. You can
+see these messages by using the help command as follows:</p>
+<pre class="highlight plaintext">$ boxci help
+</pre>
+<p>The above shows you the top level <code>boxci help</code> including a break down of it&rsquo;s
+subcommands. You can get detailed help on each subcommand by running the
+following:</p>
+<pre class="highlight plaintext">$ boxci help SUBCOMMAND
+</pre>
+<p>For example if you wanted the detailed help on <code>init</code> you would run the
+following:</p>
+<pre class="highlight plaintext">$ boxci help init
+</pre>
           </div>
 
           <aside class="col-sm-3 col-sm-offset-1">

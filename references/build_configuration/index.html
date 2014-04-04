@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Documentation</title>
+    <title>BoxCI: Documentation</title>
     <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
     <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
     <link href="/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
@@ -14,8 +14,8 @@
     <nav class="navbar navbar-default nav-bar-static-top" role="navigation" style="margin-bottom: 0px;">
   <div class="container">
     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/">Blog</a></li>
-      <li><a href="/docs">Documentation</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/">Documentation</a></li>
     </ul>
     <a class="navbar-brand" href="/">
       <img src="/images/boxci-logo-sm.png" style="height: 40px; margin-top: -10px;" alt="boxci logo">
@@ -27,17 +27,17 @@
     <div id="main" role="main" class="docs">
       <div class="container">
         <div class="row">
-          <div class="col-sm-8">
-            <h1>Configuring your build</h1>
+          <div class="col-sm-8" id="documentation_body">
+            <h1 id="configuring-your-build">Configuring your build</h1>
 
-<h3>What This Guide Covers</h3>
+<h3 id="what-this-guide-covers">What This Guide Covers</h3>
 
 <p>This guide covers build environment and configuration topics common to all
 projects managed with BoxCI, regardless of the technology. We recommend you
 start with the <a href="/doc/getting_started.html">Getting Started</a> guide and read
 this guide completely before moving on to any of the more targeted guides.</p>
 
-<h2>.boxci.yml file: what it is and how it works</h2>
+<h2 id=".boxci.yml-file:-what-it-is-and-how-it-works">.boxci.yml file: what it is and how it works</h2>
 
 <p>BoxCI uses <code>.boxci.yml</code> file in the root of your repository to learn about
 your project and how you want your builds to be executed. Your <code>.boxci.yml</code>
@@ -57,7 +57,7 @@ install your projects dependencies</li>
 for your project: ruby, java, or something else. For everything else there are
 reasonable defaults.</p>
 
-<h2>Build Lifecycle</h2>
+<h2 id="build-lifecycle">Build Lifecycle</h2>
 
 <p>By default the worker performs the build as follows:</p>
 
@@ -118,20 +118,20 @@ is treated as failure.</strong></p>
 language based build steps, all of the above steps can be tweaked with
 <code>.boxci.yml</code>.</p>
 
-<h3>BoxCI Preserves No State Between Builds</h3>
+<h3 id="boxci-preserves-no-state-between-builds">BoxCI Preserves No State Between Builds</h3>
 
 <p>BoxCI spins up a fresh virtual machine each build to make sure no state is
 shared across bulids. If you modify your CI environment during a build by
 adding files, installing things, etc. Those changes will not persist or the
 next build.</p>
 
-<h2>Define custom build lifecycle commands</h2>
+<h2 id="define-custom-build-lifecycle-commands">Define custom build lifecycle commands</h2>
 
-<h3>Overview</h3>
+<h3 id="overview">Overview</h3>
 
 <p>BoxCI runs all commands over SSH in isolated virtual machines.</p>
 
-<h3>script</h3>
+<h3 id="script">script</h3>
 
 <p>You can specify the main build command to run instead of the default</p>
 <pre class="highlight yaml"><span class="s">script</span><span class="pi">:</span> <span class="s2">"</span><span class="s">./run-tests.sh"</span>
@@ -147,7 +147,7 @@ time!).</p>
   <span class="pi">-</span> <span class="s">bundle exec rspec spec</span>
   <span class="pi">-</span> <span class="s">bundle exec cucumber</span>
 </pre>
-<h3>before_script, after_script</h3>
+<h3 id="before_script,-after_script">before_script, after_script</h3>
 
 <p>You can also define scripts to be run before and after the main script:</p>
 <pre class="highlight yaml"><span class="s">before_script</span><span class="pi">:</span> <span class="s">some_command</span>
@@ -164,7 +164,7 @@ time!).</p>
 <p>These settings can be extremely useful for doing things like setting up a
 database for the test suite, etc.</p>
 
-<h3>install</h3>
+<h3 id="install">install</h3>
 
 <p>If your project uses non-standard dependency management tools or you have some
 other special situation you can add additional dependency installation
@@ -178,7 +178,7 @@ lines as follows:</p>
   <span class="pi">-</span> <span class="s">ant install-deps</span>
   <span class="pi">-</span> <span class="s">some other dependency install</span>
 </pre>
-<h3>before_install</h3>
+<h3 id="before_install">before_install</h3>
 
 <p>You can also define scripts to be run before the dependency installation
 (<code>install</code>):</p>
@@ -189,7 +189,7 @@ lines as follows:</p>
 <p><code>before_install</code> could be used to update git repository submodules, update
 package system caches, etc.</p>
 
-<h2>Choose runtime versions</h2>
+<h2 id="choose-runtime-versions">Choose runtime versions</h2>
 
 <p>One of the key features of BoxCI is the ease of running your test suite
 against multiple runtimes and versions. Since there is no way for BoxCI to
@@ -203,7 +203,7 @@ of different environments.</p>
 
 <p>Here are some examples for various languages:</p>
 
-<h3>Ruby</h3>
+<h3 id="ruby">Ruby</h3>
 
 <p>Currently BoxCI supports Ruby versions using
 <a href="https://github.com/sstephenson/rbenv">rbenv</a>. To test against multiple Ruby
@@ -219,7 +219,7 @@ versions you would do the following:</p>
             <div class="side-module">
               <h2>Guides</h2>
               <ul>
-                <li><a href="/docs/guides/getting_started.html">Getting Started</a></li>
+                <li><a href="/guides/getting_started">Getting Started</a></li>
                 <!-- <li><a href="#">Validate your .boxci.yml</a></li> -->
                 <!-- <li><a href="#">Headless Testing with Browsers</a></li> -->
               </ul>
@@ -228,9 +228,9 @@ versions you would do the following:</p>
             <div class="side-module">
               <h2>References</h2>
               <ul>
-                <li><a href="/docs/references/build_configuration.html">Build configuration</a></li>
-                <li><a href="#">The CI Environment</a></li>
-                <li><a href="#">Command Line Interface</a></li>
+                <li><a href="/references/build_configuration">Build configuration</a></li>
+                <li><a href="/references/ci_environment">The CI Environment</a></li>
+                <li><a href="/references/command_line_interface">Command Line Interface</a></li>
                 <!-- <li><a href="#">Common Build Problems</a></li> -->
               </ul>
             </div>
@@ -238,16 +238,15 @@ versions you would do the following:</p>
             <div class="side-module">
               <h2>Language-Specific Guides</h2>
               <ul>
-                <li><a href="#">Ruby</a></li>
-                <!-- <li><a href="#">Java</a></li> -->
+                <li><a href="/language_guides/ruby">Ruby</a></li>
               </ul>
             </div>
 
             <div class="side-module">
               <h2>Developer Guides</h2>
               <ul>
-                <li><a href="#">How it Works</a></li>
-                <li><a href="#">Contribiting Code</a></li>
+                <!-- <li><a href="#">How it Works</a></li> -->
+                <li><a href="http://github.com/reachlocal/boxci/blob/master/DEVELOPMENT.md">Contribiting Code</a></li>
               </ul>
             </div>
 
@@ -255,6 +254,8 @@ versions you would do the following:</p>
               <h2>Contact</h2>
               <ul>
                 <li><a href="irc://chat.freenode.net/%23boxci">IRC</a></li>
+                <li><a href="http://groups.google.com/forum/#!forum/boxci">Mailing list</a></li>
+                <li><a href="/blog/feed.xml">Blog Feed</a></li>
               </ul>
             </div>
 

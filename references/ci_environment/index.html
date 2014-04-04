@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BoxCI: Documentation</title>
+    <link href="/images/favicon.ico" rel="icon" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed" href="/feed.xml" />
+    <link href="/stylesheets/application.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/rouge.css" media="screen" rel="stylesheet" type="text/css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-default nav-bar-static-top" role="navigation" style="margin-bottom: 0px;">
+  <div class="container">
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/">Documentation</a></li>
+    </ul>
+    <a class="navbar-brand" href="/">
+      <img src="/images/boxci-logo-sm.png" style="height: 40px; margin-top: -10px;" alt="boxci logo">
+    </a>
+  </div>
+</nav>
+
+
+    <div id="main" role="main" class="docs">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-8" id="documentation_body">
+            <h1 id="the-environment">The Environment</h1>
+
+<h3 id="what-this-covers">What This Covers</h3>
+
+<p>This reference describes the defaults for the environment as well as the
+various ways that the environment can be configured and controlled.</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>BoxCI runs builds in isolated virtual machines which are configured using the
+primary Puppet manifiests in <code>puppet/manifests/main.pp</code>.</p>
+
+<p>This has the advantage that no state persists across builds, giving you a
+clean slate and making sure your tests can run in an environment built from
+scratch.</p>
+
+<p>To setup the system for your build, you can modify your Puppet manifests to
+initialize the state of your environment or you can use the <code>sudo</code> command to
+install packages, change configurations, create users, etc.</p>
+
+<p>Builds have access to any services you setup in your Puppet manifests. For
+example if you setup your Puppet manifests to install, configure, and start
+PostgreSQL then your build would be able to access the PostreSQL service.</p>
+
+<h2 id="environment-os">Environment OS</h2>
+
+<p>BoxCI virtual machines are generally based on Ubuntu 12.04 LTS. <em>Note:</em> There
+are configuration options with some providers where you can change this.</p>
+
+<h2 id="environment-common-to-all-vm-images">Environment common to all VM images</h2>
+
+<p>All VM images have the following pre-installed</p>
+
+<h3 id="git,-etc">Git, etc</h3>
+
+<ul>
+<li>Git</li>
+</ul>
+
+<h3 id="compilers-&amp;-build-toolchain">Compilers &amp; Build toolchain</h3>
+
+<ul>
+<li>GCC 4.6.x, make, autotools</li>
+</ul>
+
+<h3 id="networking-tools">Networking tools</h3>
+
+<ul>
+<li>curl, wget, OpenSSL, rsync</li>
+</ul>
+
+<h2 id="starter-environments">Starter Environments</h2>
+
+<p>Beyond the things common to all the VM base images, BoxCI generates a working
+starter Puppet configuration based on the information found in the project&rsquo;s
+<code>.boxci.yml</code>. This is intended to help you get your environment going as quick
+as possible.</p>
+
+<p>For example if your <code>.boxci.yml</code> looked as follows before you ran <code>boxci
+build</code>:</p>
+<pre class="highlight yaml"><span class="s">language</span><span class="pi">:</span> <span class="s">ruby</span>
+<span class="s">rbenv</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s2">"</span><span class="s">2.1.0"</span>
+<span class="c1"># uncomment this line if your project needs to run something other than `rake`:</span>
+<span class="c1"># script: bundle exec rspec spec</span>
+</pre>
+<p>It would generate a starter Puppet configuration that would install
+<a href="http://github.com/sstephenson/rbenv">rbenv</a> and Ruby version 2.1.0 via
+<a href="http://github.com/sstephenson/rbenv">rbenv</a>.</p>
+
+<p>On the other hand if your <code>.boxci.yml</code> looked as follows before you ran <code>boxci
+build</code>:</p>
+<pre class="highlight yaml"><span class="s">language</span><span class="pi">:</span> <span class="s">ruby</span>
+<span class="s">rbenv</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s2">"</span><span class="s">2.1.0"</span>
+  <span class="pi">-</span> <span class="s2">"</span><span class="s">1.9.3-p327"</span>
+<span class="c1"># uncomment this line if your project needs to run something other than `rake`:</span>
+<span class="c1"># script: bundle exec rspec spec</span>
+</pre>
+<p>It would generate a starter Puppet configuration that would install
+<a href="http://github.com/sstephenson/rbenv">rbenv</a> and Ruby 2.1.0 and 1.9.3-p327 via
+<a href="http://github.com/sstephenson/rbenv">rbenv</a>.</p>
+
+<p><strong>Note:</strong> <code>boxci build</code> is non-destructive by default. This means you can
+rerun <code>boxci build</code> and if it runs into a conflict between a file it is trying
+to generate and an already existing version of that file it will prompt you,
+allowing you choose what to do. A few of the options it presents you with are
+diff, overwrite, ignore, etc.</p>
+
+<p>This is extremely useful if say, you previously ran <code>boxci build</code> with only
+Ruby 2.1.0 specified in your <code>.boxci.yml</code> and now you want it to be tested
+against both Ruby 2.1.0 and 1.9.3-p327.</p>
+
+<h2 id="customize-environments">Customize Environments</h2>
+
+<p><em>Environments are what you make of them.</em> </p>
+
+<p>The starter environments are simply intended to jump start you in the process
+and potentially handle some of the simpler scenarios automatically. For the
+rest of the more complicated scenarios the assumption is that you will be
+customizing your Puppet manifests to configure your build environment exactly
+as you need it. We covered the rough process around this in the <a href="/guides/getting_started#step-five%3A-iterate-on-the-environment">Getting
+Started</a>
+guide.</p>
+
+<p>We are contemplating supporting a services configuration concept to aid in
+getting various services added to your Puppet manifests via the <code>boxci build</code>
+process. However, currently you will have to manually add them to the Puppet
+manifests.</p>
+
+          </div>
+
+          <aside class="col-sm-3 col-sm-offset-1">
+            <div class="side-module">
+              <h2>Guides</h2>
+              <ul>
+                <li><a href="/guides/getting_started">Getting Started</a></li>
+                <!-- <li><a href="#">Validate your .boxci.yml</a></li> -->
+                <!-- <li><a href="#">Headless Testing with Browsers</a></li> -->
+              </ul>
+            </div>
+
+            <div class="side-module">
+              <h2>References</h2>
+              <ul>
+                <li><a href="/references/build_configuration">Build configuration</a></li>
+                <li><a href="/references/ci_environment">The CI Environment</a></li>
+                <li><a href="/references/command_line_interface">Command Line Interface</a></li>
+                <!-- <li><a href="#">Common Build Problems</a></li> -->
+              </ul>
+            </div>
+
+            <div class="side-module">
+              <h2>Language-Specific Guides</h2>
+              <ul>
+                <li><a href="/language_guides/ruby">Ruby</a></li>
+              </ul>
+            </div>
+
+            <div class="side-module">
+              <h2>Developer Guides</h2>
+              <ul>
+                <!-- <li><a href="#">How it Works</a></li> -->
+                <li><a href="http://github.com/reachlocal/boxci/blob/master/DEVELOPMENT.md">Contribiting Code</a></li>
+              </ul>
+            </div>
+
+            <div class="side-module">
+              <h2>Contact</h2>
+              <ul>
+                <li><a href="irc://chat.freenode.net/%23boxci">IRC</a></li>
+                <li><a href="http://groups.google.com/forum/#!forum/boxci">Mailing list</a></li>
+                <li><a href="/blog/feed.xml">Blog Feed</a></li>
+              </ul>
+            </div>
+
+            <div class="side-module">
+              <h2>Contributing</h2>
+              <p class="item">This documentation site is open source. Feel free to <a href="http://github.com/reachlocal/boxci-site/issues">file issues about it</a>. The README in our <a href="http://github.com/reachlocal/boxci-site">Git repository</a> explains how to contribute.</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+    
+    <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-4">
+        <div class="copyright_and_logo">
+          <a href="http://reachlocal.com" style="display: block; float: left;">
+            <img src="/images/reachlocal_logo.png" style="height: 50px;" alt="ReachLocal Inc. Logo">
+          </a>
+          <div style="float: left; margin-left: 20px; margin-top: 17px;">
+            &copy; ReachLocal Inc.
+          </div>
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+
+      <div style="margin-top: 17px;">
+        <div class="col-xs-4">
+        </div>
+
+        <div class="col-xs-1">
+          <ul>
+            <li><a href="irc://chat.freenode.net/%23boxci">IRC</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-1">
+          <ul>
+            <li><a href="http://github.com/reachlocal/boxci">GitHub</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-1">
+          <ul>
+            <li><a href="http://github.com/reachlocal/boxci/issues">Issues</a></li>
+          </ul>
+        </div>
+        <div class="col-xs-1">
+          <ul>
+            <li><a href="/feed.xml">Blog Feed</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <script src="/javascripts/application.js" type="text/javascript"></script>
+  </body>
+</html>

@@ -28,29 +28,159 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-8" id="documentation_body">
-            <h1>Archive for
-  
-    Jan  1 2012
-  
-</h1>
+            <h1 id="building-a-ruby-project">Building a Ruby Project</h1>
 
-  <p>Page 2 of 2</p>
+<h3 id="what-this-guide-covers">What This Guide Covers</h3>
 
-  
-    <p><a href="/2012/01/01.html">Previous page</a></p>
-  
+<p>This guide covers build environment and configuration topics specific to Ruby
+projects. Please make sure to read our <a href="/guides/getting_started">Getting
+Started</a> and general <a href="/references/build_configuration">Build
+Configuration</a> guides first.</p>
+
+<h2 id="choosing-ruby-versions-to-test-against">Choosing Ruby versions to test against</h2>
+
+<p>The starter Ruby environment on BoxCI use
+<a href="http://github.com/sstephenson/rbenv">rbenv</a> to provide many Ruby
+implementations and versions your project can be tested against.</p>
+
+<p>To specify them, use <code>rbenv:</code> key in your <code>.boxci.yml</code> file, for example:</p>
+<pre class="highlight yaml"><span class="s">language</span><span class="pi">:</span> <span class="s">ruby</span>
+<span class="s">rbenv</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s2">"</span><span class="s">2.1.0"</span>
+  <span class="pi">-</span> <span class="s2">"</span><span class="s">1.9.3-p327"</span>
+  <span class="pi">-</span> <span class="s2">"</span><span class="s">1.9.3"</span>
+  <span class="pi">-</span> <span class="s2">"</span><span class="s">1.8.7"</span>
+<span class="c1"># uncomment this line if your project needs to run something other than `rake`:</span>
+<span class="c1"># script: bundle exec rspec spec</span>
+</pre>
+<h3 id="supported-ruby-versions">Supported Ruby versions</h3>
+
+<p>At the time of writing the <a href="http://github.com/sstephenson/rbenv">rbenv</a>
+supported the following Ruby versions. Any of the following can be specified
+as Ruby versions under the <code>rbenv:</code> key as seen in the above example.</p>
 
 <ul>
-  
-    <li><a href="/2012/01/01/example-article-far.html">Example Article</a> <span>Jan  1</span></li>
-  
-    <li><a href="/2012/01/01/example-article-car.html">Example Article</a> <span>Jan  1</span></li>
-  
-    <li><a href="/2012/01/01/example-article-bar.html">Example Article</a> <span>Jan  1</span></li>
-  
+<li>1.8.6-p383</li>
+<li>1.8.6-p420</li>
+<li>1.8.7-p249</li>
+<li>1.8.7-p302</li>
+<li>1.8.7-p334</li>
+<li>1.8.7-p352</li>
+<li>1.8.7-p357</li>
+<li>1.8.7-p358</li>
+<li>1.8.7-p370</li>
+<li>1.8.7-p371</li>
+<li>1.8.7-p374</li>
+<li>1.8.7-p375</li>
+<li>1.9.1-p378</li>
+<li>1.9.1-p430</li>
+<li>1.9.2-p0</li>
+<li>1.9.2-p180</li>
+<li>1.9.2-p290</li>
+<li>1.9.2-p318</li>
+<li>1.9.2-p320</li>
+<li>1.9.2-p326</li>
+<li>1.9.3-dev</li>
+<li>1.9.3-p0</li>
+<li>1.9.3-p125</li>
+<li>1.9.3-p194</li>
+<li>1.9.3-p286</li>
+<li>1.9.3-p327</li>
+<li>1.9.3-p362</li>
+<li>1.9.3-p374</li>
+<li>1.9.3-p385</li>
+<li>1.9.3-p392</li>
+<li>1.9.3-p429</li>
+<li>1.9.3-p448</li>
+<li>1.9.3-p484</li>
+<li>1.9.3-p545</li>
+<li>1.9.3-preview1</li>
+<li>1.9.3-rc1</li>
+<li>2.0.0-dev</li>
+<li>2.0.0-p0</li>
+<li>2.0.0-p195</li>
+<li>2.0.0-p247</li>
+<li>2.0.0-p353</li>
+<li>2.0.0-p451</li>
+<li>2.0.0-preview1</li>
+<li>2.0.0-preview2</li>
+<li>2.0.0-rc1</li>
+<li>2.0.0-rc2</li>
+<li>2.1.0</li>
+<li>2.1.0-dev</li>
+<li>2.1.0-preview1</li>
+<li>2.1.0-preview2</li>
+<li>2.1.0-rc1</li>
+<li>2.1.1</li>
+<li>2.2.0-dev</li>
+<li>jruby-1.5.6</li>
+<li>jruby-1.6.3</li>
+<li>jruby-1.6.4</li>
+<li>jruby-1.6.5</li>
+<li>jruby-1.6.5.1</li>
+<li>jruby-1.6.6</li>
+<li>jruby-1.6.7</li>
+<li>jruby-1.6.7.2</li>
+<li>jruby-1.6.8</li>
+<li>jruby-1.7.0</li>
+<li>jruby-1.7.0-preview1</li>
+<li>jruby-1.7.0-preview2</li>
+<li>jruby-1.7.0-rc1</li>
+<li>jruby-1.7.0-rc2</li>
+<li>jruby-1.7.1</li>
+<li>jruby-1.7.10</li>
+<li>jruby-1.7.11</li>
+<li>jruby-1.7.2</li>
+<li>jruby-1.7.3</li>
+<li>jruby-1.7.4</li>
+<li>jruby-1.7.5</li>
+<li>jruby-1.7.6</li>
+<li>jruby-1.7.7</li>
+<li>jruby-1.7.8</li>
+<li>jruby-1.7.9</li>
+<li>jruby-9000+graal-dev</li>
+<li>jruby-9000-dev</li>
+<li>maglev-1.0.0</li>
+<li>maglev-1.1.0-dev</li>
+<li>maglev-2.0.0-dev</li>
+<li>mruby-1.0.0</li>
+<li>mruby-dev</li>
+<li>rbx-1.2.4</li>
+<li>rbx-2.0.0</li>
+<li>rbx-2.0.0-dev</li>
+<li>rbx-2.0.0-rc1</li>
+<li>rbx-2.1.0</li>
+<li>rbx-2.1.1</li>
+<li>rbx-2.2.0</li>
+<li>rbx-2.2.1</li>
+<li>rbx-2.2.2</li>
+<li>rbx-2.2.3</li>
+<li>rbx-2.2.4</li>
+<li>rbx-2.2.5</li>
+<li>ree-1.8.6-2009.06</li>
+<li>ree-1.8.7-2009.09</li>
+<li>ree-1.8.7-2009.10</li>
+<li>ree-1.8.7-2010.01</li>
+<li>ree-1.8.7-2010.02</li>
+<li>ree-1.8.7-2011.03</li>
+<li>ree-1.8.7-2011.12</li>
+<li>ree-1.8.7-2012.01</li>
+<li>ree-1.8.7-2012.02</li>
+<li>topaz-dev</li>
 </ul>
 
-  
+<h2 id="default-test-script">Default Test Script</h2>
+
+<p>BoxCI runs <code>rake</code> by default to execute your tests. Please note that <strong>you
+need to add rake to your Gemfile</strong> (adding it to the <code>:test</code> group should be
+sufficient).</p>
+
+<h2 id="dependency-management">Dependency Management</h2>
+
+<h3 id="boxci-uses-bundler">BoxCI uses Bundler</h3>
+
+<p>BoxCI uses <a href="http://bundler.io">Bundler</a> to install your project&rsquo;s
+dependencies.</p>
 
           </div>
 

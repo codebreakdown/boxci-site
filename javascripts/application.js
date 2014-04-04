@@ -1961,3 +1961,16 @@ return d||(f=$b[b],$b[b]=e,e=null!=c(a,b,d)?b.toLowerCase():null,$b[b]=f),e}});v
 
 
 
+
+$(function(){
+  var cname = function(name) {
+    return name.replace(/[ \/<>]/g, '-').toLowerCase();
+  }
+
+  $('#documentation_body').children(":header:not(h1):not(h2.title)").each(function(i) {
+    var current = $(this);
+    var text = current.text();
+    var id = cname(text);
+    current.wrap('<a href=\"#' + encodeURIComponent(id) + '\"></a>')
+  });
+});
