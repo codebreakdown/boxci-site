@@ -21,7 +21,7 @@ Below I provide a quick guide to the basics of contributing to this site using
 something that requires more knowledge please refer to the
 [middleman site](http://middlemanapp.com/).
 
-This projects depends on Ruby and manages dependencies using
+This project depends on Ruby and manages dependencies using
 [bundler](http://bundler.io/). Therefore, you need to have Ruby and
 [bundler](http://bundler.io/) installed and the projects dependencies
 installed.

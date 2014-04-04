@@ -75,8 +75,8 @@ language based build steps, all of the above steps can be tweaked with
 ### BoxCI Preserves No State Between Builds
 
 BoxCI spins up a fresh virtual machine each build to make sure no state is
-shared across bulids. If you modify your CI environment during a build by
-adding files, installing things, etc. Those changes will not persist or the
+shared across builds. If you modify your CI environment during a build by
+adding files, installing things, etc. Those changes will not persist on the
 next build.
 
 ## Define custom build lifecycle commands

@@ -41,7 +41,7 @@ To build your initial BoxCI environment you run the following:
 This will build your initial Puppet hiearchy, Puppet manifests, and your
 projects Vagrantfile. It does this by looking at your `.boxci.yml` and
 gathering information to build you the best initial environment configuration
-possible. It takes no addition options.
+possible. It takes no additional options.
 
 ## boxci test
 
@@ -54,7 +54,7 @@ To see more output on what is happening, pass the "-v" flag for verbose:
 
     $ boxci test -v
 
-For details on other options you can set for test runs run the following
+For details on other options you can set for test runs, run the following
 command:
 
     $ boxci help test
