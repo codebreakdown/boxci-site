@@ -34,7 +34,7 @@ activate :blog do |blog|
   # blog.page_link = "page/{num}"
 end
 
-page "/feed.xml", layout: false
+page "/blog/feed.xml", layout: false
 
 ###
 # Compass
