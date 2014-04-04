@@ -1,25 +1,14 @@
 # Command Line Interface
 
-This reference documents the `boxci` command line interface and what the
-intended uses of it are.
+This reference documents the `boxci` command line interface, what the
+intended uses of various commands are, as well as all of the options.
 
-## Set up your project
+## boxci init
 
-Setting a new or existing project up with Boxci is done with the following
-steps.
-
-1. Setup initial `boxci` configs & skeletons
-2. Update the generated configs
-3. Build your base `boxci` puppet manifest
-4. Iterate on your `boxci` puppet manifest
-5. Run your test suite using `boxci`
-
-### Setup initial boxci configs & skeletons
-
-To *boxcify* your project you need to run the `boxci init <language>` command.
-This command will create an initial `.boxci.yml` config for you in the current
-working directory. Therefore, you should run this command from the root of
-your project. It will also handle creating your user level `boxci`
+To use BoxCI with your project you need to run the `boxci init <language>`
+command. This command will create an initial `.boxci.yml` config for you in
+the current working directory. Therefore, you should run this command from the
+root of your project. It will also handle creating your user level `boxci`
 configurations in the `~/.boxci` directory. An example of this can be seen as
 follows:
 
@@ -43,16 +32,18 @@ in the scenarios where a new version of `boxci` has come out and added config
 options because then you can rerun it and choose to diff them to see what was
 added.
 
-### Update the generated configs
+## boxci build
 
-Now that the initial configs and skeleton have been generated. We need to go
-through the configs and update them.
+To build your initial BoxCI environment you run the following:
 
-### Build your base Boxci
+    $ boxci build
 
-### Iterate on your Boxci
+This will build your initial Puppet hiearchy, Puppet manifests, and your
+projects Vagrantfile. It does this by looking at your `.boxci.yml` and
+gathering information to build you the best initial environment configuration
+possible. It takes no addition options.
 
-### Run your Test Suite using Boxci
+## boxci test
 
 To run your automated test suite in the cloud or locally in a `boxci` managed
 virtual machine simply run the following from the project's root directory.
@@ -68,7 +59,7 @@ command:
 
     $ boxci help test
 
-## Get Help
+## boxci help
 
 `boxci` provides a useful help system within the command line tool. You can
 see these messages by using the help command as follows:
