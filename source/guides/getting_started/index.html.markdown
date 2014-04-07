@@ -8,13 +8,13 @@ that surround them. It can be thought of as having the following components:
 
 - **Configuration Management** - provides a structure/framework around
   defining and managing the configuration of its development & continuous
-  integration environments. It uses [Puppet](http://puppetlabs.com/) well
+  integration environments. It uses [Puppet](http://puppetlabs.com/), a well
   known configuration management tool to aid in this task.
 - **Virtual Machine Management** - defines an interface for managing your
-  BoxCI development and continuous integration nodes in the cloude. It uses
+  BoxCI development and continuous integration nodes in the cloud. It uses
   [Vagrant](http://vagrantup.com), a well know virtual machine management
   tool, behind the scenes to handle most of this functionality.
-- **Continous Integration Build Support** - includes a framework for defining your
+- **Continous Integration Build Support** - includes a framework for defining
   the continuous integration build process that should be used when you want
   to run your test suite in a cloud node. This can be extremely useful if you
   want to offload the work of a build onto a cloud node instead of your local
@@ -22,10 +22,10 @@ that surround them. It can be thought of as having the following components:
   on exposing code to public services.
 
 BoxCI allows you to completely customize & standardize your development &
-continuos integration environment. This extremely useful for bootstrapping new
-developers to a project because they don't have to worry about getting all the
-external dependencies and initial setup working on their machine. Instead they
-can just use BoxCI to spin up the development environment & to run the
+continuos integration environment. This is extremely useful for bootstrapping
+new developers to a project because they don't have to worry about getting all
+the external dependencies and initial setup working on their machine. Instead
+they can just use BoxCI to spin up the development environment & to run the
 projects automated test suite in the cloud.
 
 You can easily get going with BoxCI by following the steps below.
@@ -86,9 +86,9 @@ rbenv:
   - "2.1.0"
 ```
 
-Beyond that there is a comment that it assumes your project has a `Rakefile`
-with a default rake task that will run your automated test suite. If you don't
-and want to customize it you can do so by doing as the comment says and
+Beyond that there is a comment that assumes your project has a `Rakefile`
+with a default rake task that will run your automated test suite. If you don't,
+and want to customize it, you can do so by doing as the comment says and
 uncommenting and modifying the `# script: bundle exec rspec spec` line.
 
 Once edited your `.boxci.yml` might look something like the following:
@@ -129,7 +129,7 @@ Reactivating local git directory for submodule 'puppet/modules/rbenv'.
 From the output we can see that this is doing a few different things.
 
 1. Creating a starter Vagrantfile for the project
-2. Creating a directory structure to maintain puppet manifiests
+2. Creating a directory structure to maintain puppet manifests
    (`puppet/manifests`) & modules (`puppet/modules`)
 3. Generating a starting puppet manifest (`puppet/manifests/main.pp`) and
    adding any necessary puppet modules
@@ -142,7 +142,7 @@ Interface](/references/command_line_interface#boxci-build) Reference.
 ## Step Five: Iterate on the Environment
 
 Next you should iterate on your [Puppet](http://puppetlabs.com) manifests.
-*Note:* This may not be needed if you project is simple, like lets say a Ruby
+*Note:* This may not be needed if your project is simple, like lets say a Ruby
 gem, as the default generated manifest may be sufficient.
 
 If the project is more complex and you need to have a more complicated

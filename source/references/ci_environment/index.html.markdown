@@ -8,7 +8,7 @@ various ways that the environment can be configured and controlled.
 ## Overview
 
 BoxCI runs builds in isolated virtual machines which are configured using the
-primary Puppet manifiests in `puppet/manifests/main.pp`.
+primary Puppet manifests in `puppet/manifests/main.pp`.
 
 This has the advantage that no state persists across builds, giving you a
 clean slate and making sure your tests can run in an environment built from
@@ -20,7 +20,7 @@ install packages, change configurations, create users, etc.
 
 Builds have access to any services you setup in your Puppet manifests. For
 example if you setup your Puppet manifests to install, configure, and start
-PostgreSQL then your build would be able to access the PostreSQL service.
+PostgreSQL then your build would be able to access the PostgreSQL service.
 
 ## Environment OS
 
@@ -84,7 +84,7 @@ It would generate a starter Puppet configuration that would install
 **Note:** `boxci build` is non-destructive by default. This means you can
 rerun `boxci build` and if it runs into a conflict between a file it is trying
 to generate and an already existing version of that file it will prompt you,
-allowing you choose what to do. A few of the options it presents you with are
+allowing you to choose what to do. A few of the options it presents you with are
 diff, overwrite, ignore, etc.
 
 This is extremely useful if say, you previously ran `boxci build` with only
