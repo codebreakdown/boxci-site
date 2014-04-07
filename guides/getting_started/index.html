@@ -39,13 +39,13 @@ that surround them. It can be thought of as having the following components:</p>
 <ul>
 <li><strong>Configuration Management</strong> - provides a structure/framework around
 defining and managing the configuration of its development &amp; continuous
-integration environments. It uses <a href="http://puppetlabs.com/">Puppet</a> well
+integration environments. It uses <a href="http://puppetlabs.com/">Puppet</a>, a well
 known configuration management tool to aid in this task.</li>
 <li><strong>Virtual Machine Management</strong> - defines an interface for managing your
-BoxCI development and continuous integration nodes in the cloude. It uses
+BoxCI development and continuous integration nodes in the cloud. It uses
 <a href="http://vagrantup.com">Vagrant</a>, a well know virtual machine management
 tool, behind the scenes to handle most of this functionality.</li>
-<li><strong>Continous Integration Build Support</strong> - includes a framework for defining your
+<li><strong>Continous Integration Build Support</strong> - includes a framework for defining
 the continuous integration build process that should be used when you want
 to run your test suite in a cloud node. This can be extremely useful if you
 want to offload the work of a build onto a cloud node instead of your local
@@ -54,10 +54,10 @@ on exposing code to public services.</li>
 </ul>
 
 <p>BoxCI allows you to completely customize &amp; standardize your development &amp;
-continuos integration environment. This extremely useful for bootstrapping new
-developers to a project because they don&rsquo;t have to worry about getting all the
-external dependencies and initial setup working on their machine. Instead they
-can just use BoxCI to spin up the development environment &amp; to run the
+continuos integration environment. This is extremely useful for bootstrapping
+new developers to a project because they don&rsquo;t have to worry about getting all
+the external dependencies and initial setup working on their machine. Instead
+they can just use BoxCI to spin up the development environment &amp; to run the
 projects automated test suite in the cloud.</p>
 
 <p>You can easily get going with BoxCI by following the steps below.</p>
@@ -106,9 +106,9 @@ specifies a list of ruby versions to test against.</p>
 <pre class="highlight yaml"><span class="s">rbenv</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="s2">"</span><span class="s">2.1.0"</span>
 </pre>
-<p>Beyond that there is a comment that it assumes your project has a <code>Rakefile</code>
-with a default rake task that will run your automated test suite. If you don&rsquo;t
-and want to customize it you can do so by doing as the comment says and
+<p>Beyond that there is a comment that assumes your project has a <code>Rakefile</code>
+with a default rake task that will run your automated test suite. If you don&rsquo;t,
+and want to customize it, you can do so by doing as the comment says and
 uncommenting and modifying the <code># script: bundle exec rspec spec</code> line.</p>
 
 <p>Once edited your <code>.boxci.yml</code> might look something like the following:</p>
@@ -141,7 +141,7 @@ Reactivating local git directory for submodule 'puppet/modules/rbenv'.
 
 <ol>
 <li>Creating a starter Vagrantfile for the project</li>
-<li>Creating a directory structure to maintain puppet manifiests
+<li>Creating a directory structure to maintain puppet manifests
 (<code>puppet/manifests</code>) &amp; modules (<code>puppet/modules</code>)</li>
 <li>Generating a starting puppet manifest (<code>puppet/manifests/main.pp</code>) and
 adding any necessary puppet modules</li>
@@ -155,7 +155,7 @@ Interface</a> Reference.</p>
 <h2 id="step-five:-iterate-on-the-environment">Step Five: Iterate on the Environment</h2>
 
 <p>Next you should iterate on your <a href="http://puppetlabs.com">Puppet</a> manifests.
-<em>Note:</em> This may not be needed if you project is simple, like lets say a Ruby
+<em>Note:</em> This may not be needed if your project is simple, like lets say a Ruby
 gem, as the default generated manifest may be sufficient.</p>
 
 <p>If the project is more complex and you need to have a more complicated
@@ -239,7 +239,7 @@ reference.</p>
               <h2>Developer Guides</h2>
               <ul>
                 <!-- <li><a href="#">How it Works</a></li> -->
-                <li><a href="http://github.com/reachlocal/boxci/blob/master/DEVELOPMENT.md">Contribiting Code</a></li>
+                <li><a href="http://github.com/reachlocal/boxci/blob/master/DEVELOPMENT.md">Contributing Code</a></li>
               </ul>
             </div>
 

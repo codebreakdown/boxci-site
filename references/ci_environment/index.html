@@ -38,7 +38,7 @@ various ways that the environment can be configured and controlled.</p>
 <h2 id="overview">Overview</h2>
 
 <p>BoxCI runs builds in isolated virtual machines which are configured using the
-primary Puppet manifiests in <code>puppet/manifests/main.pp</code>.</p>
+primary Puppet manifests in <code>puppet/manifests/main.pp</code>.</p>
 
 <p>This has the advantage that no state persists across builds, giving you a
 clean slate and making sure your tests can run in an environment built from
@@ -50,7 +50,7 @@ install packages, change configurations, create users, etc.</p>
 
 <p>Builds have access to any services you setup in your Puppet manifests. For
 example if you setup your Puppet manifests to install, configure, and start
-PostgreSQL then your build would be able to access the PostreSQL service.</p>
+PostgreSQL then your build would be able to access the PostgreSQL service.</p>
 
 <h2 id="environment-os">Environment OS</h2>
 
@@ -114,7 +114,7 @@ build</code>:</p>
 <p><strong>Note:</strong> <code>boxci build</code> is non-destructive by default. This means you can
 rerun <code>boxci build</code> and if it runs into a conflict between a file it is trying
 to generate and an already existing version of that file it will prompt you,
-allowing you choose what to do. A few of the options it presents you with are
+allowing you to choose what to do. A few of the options it presents you with are
 diff, overwrite, ignore, etc.</p>
 
 <p>This is extremely useful if say, you previously ran <code>boxci build</code> with only
@@ -171,7 +171,7 @@ manifests.</p>
               <h2>Developer Guides</h2>
               <ul>
                 <!-- <li><a href="#">How it Works</a></li> -->
-                <li><a href="http://github.com/reachlocal/boxci/blob/master/DEVELOPMENT.md">Contribiting Code</a></li>
+                <li><a href="http://github.com/reachlocal/boxci/blob/master/DEVELOPMENT.md">Contributing Code</a></li>
               </ul>
             </div>
 
