@@ -50,8 +50,10 @@ starter Puppet configuration based on the information found in the project's
 `.boxci.yml`. This is intended to help you get your environment going as quick
 as possible.
 
-For example if your `.boxci.yml` looked as follows before you ran `boxci
-build`:
+For example if your `.boxci.yml` looks as follows and you run `boxci
+build` it will generate a starter Puppet configuration to install
+[rbenv](http://github.com/sstephenson/rbenv) and Ruby version 2.1.0 via
+[rbenv](http://github.com/sstephenson/rbenv).:
 
 ```yaml
 language: ruby
@@ -61,12 +63,10 @@ rbenv:
 # script: bundle exec rspec spec
 ```
 
-It would generate a starter Puppet configuration that would install
+On the other hand if your `.boxci.yml` looks as follows and you run `boxci
+build` it will generate a starter Puppet configuration to install
 [rbenv](http://github.com/sstephenson/rbenv) and Ruby version 2.1.0 via
-[rbenv](http://github.com/sstephenson/rbenv).
-
-On the other hand if your `.boxci.yml` looked as follows before you ran `boxci
-build`:
+[rbenv](http://github.com/sstephenson/rbenv).:
 
 ```yaml
 language: ruby
@@ -76,10 +76,6 @@ rbenv:
 # uncomment this line if your project needs to run something other than `rake`:
 # script: bundle exec rspec spec
 ```
-
-It would generate a starter Puppet configuration that would install
-[rbenv](http://github.com/sstephenson/rbenv) and Ruby 2.1.0 and 1.9.3-p327 via
-[rbenv](http://github.com/sstephenson/rbenv).
 
 **Note:** `boxci build` is non-destructive by default. This means you can
 rerun `boxci build` and if it runs into a conflict between a file it is trying
