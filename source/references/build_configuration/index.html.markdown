@@ -190,3 +190,55 @@ rbenv:
   - 2.1.0
   - 1.9.3-p327
 ```
+
+## Obtaining Build Artifacts
+
+Build artifacts are an important part of a CI system. BoxCI supports automated
+collection and retrieval of artifacts. It does this by `tar`'ing up a defined
+artifacts directory. By default the artifacts directory is as follows:
+
+```text
+/tmp/boxci/artifacts
+```
+
+This default can be overridden by setting the `artifact_path` option in the
+`boxci.yml` for the project. An example of this might look as follow:
+
+```text
+artifact_path: "/vagrant/project/reports"
+```
+
+When BoxCI runs the build, it will `tar` up all the artifacts in the currently
+defined `artifact_path` and download the `boxci_artifacts.tar` from the build
+node into the current working directory when the `boxci test` command was run.
+
+### Build Artifacts for Test Output
+
+A common usage of build artifacts is to collect formatted test files so that
+whatever your various CI system is can parse them and provide additional
+detail. The following `.boxci.yml` config is an example of this used for
+Bamboo and JUnit file formats for tests inside a Ruby on Rails project.
+
+```text
+language: ruby
+before_script:
+  - RAILS_ENV=test bundle exec rake db:create
+  - RAILS_ENV=test bundle exec rake db:migrate
+script:
+  - bundle exec rspec --require ci/reporter/rake/rspec_loader --format CI::Reporter::RSpec spec
+  - bundle exec cucumber -r ci/reporter/rake/cucumber_loader features/ --tags ~@quarantine --format CI::Reporter::Cucumber
+after_script:
+  - mv spec/reports/*.xml reports/
+  - mv features/reports/*.xml reports/
+artifact_path: "/vagrant/project/reports"
+```
+
+If we look at the above example we can see that it is overriding the artifact
+directory using the `artifact_path` option. Beyond that, we can see that there
+are a few commands outlined in the `after_script` section of the `.boxci.yml`
+that move the respective JUnit test output files to the artifacts path.
+
+The above facilitates BoxCI gathering all the JUnit files `tar`'ing them up
+and returning them as the `boxci_artifacts.tar` file. This allows the Bamboo
+build task to extract the `tar` and parse the JUnit files, giving you the
+detail you would like in your test output.
