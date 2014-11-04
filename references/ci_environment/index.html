@@ -86,20 +86,20 @@ starter Puppet configuration based on the information found in the project&rsquo
 <code>.boxci.yml</code>. This is intended to help you get your environment going as quick
 as possible.</p>
 
-<p>For example if your <code>.boxci.yml</code> looked as follows before you ran <code>boxci
-build</code>:</p>
+<p>For example if your <code>.boxci.yml</code> looks as follows and you run <code>boxci
+build</code> it will generate a starter Puppet configuration to install
+<a href="http://github.com/sstephenson/rbenv">rbenv</a> and Ruby version 2.1.0 via
+<a href="http://github.com/sstephenson/rbenv">rbenv</a>.:</p>
 <pre class="highlight yaml"><span class="s">language</span><span class="pi">:</span> <span class="s">ruby</span>
 <span class="s">rbenv</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="s2">"</span><span class="s">2.1.0"</span>
 <span class="c1"># uncomment this line if your project needs to run something other than `rake`:</span>
 <span class="c1"># script: bundle exec rspec spec</span>
 </pre>
-<p>It would generate a starter Puppet configuration that would install
+<p>On the other hand if your <code>.boxci.yml</code> looks as follows and you run <code>boxci
+build</code> it will generate a starter Puppet configuration to install
 <a href="http://github.com/sstephenson/rbenv">rbenv</a> and Ruby version 2.1.0 via
-<a href="http://github.com/sstephenson/rbenv">rbenv</a>.</p>
-
-<p>On the other hand if your <code>.boxci.yml</code> looked as follows before you ran <code>boxci
-build</code>:</p>
+<a href="http://github.com/sstephenson/rbenv">rbenv</a>.:</p>
 <pre class="highlight yaml"><span class="s">language</span><span class="pi">:</span> <span class="s">ruby</span>
 <span class="s">rbenv</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="s2">"</span><span class="s">2.1.0"</span>
@@ -107,10 +107,6 @@ build</code>:</p>
 <span class="c1"># uncomment this line if your project needs to run something other than `rake`:</span>
 <span class="c1"># script: bundle exec rspec spec</span>
 </pre>
-<p>It would generate a starter Puppet configuration that would install
-<a href="http://github.com/sstephenson/rbenv">rbenv</a> and Ruby 2.1.0 and 1.9.3-p327 via
-<a href="http://github.com/sstephenson/rbenv">rbenv</a>.</p>
-
 <p><strong>Note:</strong> <code>boxci build</code> is non-destructive by default. This means you can
 rerun <code>boxci build</code> and if it runs into a conflict between a file it is trying
 to generate and an already existing version of that file it will prompt you,

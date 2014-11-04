@@ -1,32 +1,32 @@
-/* line 1, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 1, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .docs h1 {
   color: #939393;
   font-size: 34px; }
 
-/* line 6, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 6, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .docs h2 {
   color: #939393;
   font-size: 28px; }
 
-/* line 11, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 11, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .docs h3 {
   margin-top: 20px;
   margin-bottom: 15px;
   color: #607a84;
   font-size: 18px; }
 
-/* line 27, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 27, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .docs ul {
   padding-top: 10px;
   padding-bottom: 10px;
   color: #607a84; }
 
-/* line 33, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 33, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .side-module ul {
   list-style-type: none;
   padding-left: 0px; }
 
-/* line 38, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 38, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .side-module ul li {
   border-top-color: #efefef;
   border-top-style: solid;
@@ -35,14 +35,14 @@
   padding-top: 7px;
   padding-bottom: 7px; }
 
-/* line 47, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 47, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .side-module h2 {
   padding-left: 10px;
   text-transform: uppercase;
   color: #939393;
   font-size: 16px; }
 
-/* line 54, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 54, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .side-module .item {
   border-top-color: #efefef;
   border-top-style: solid;
@@ -51,39 +51,39 @@
   padding-top: 7px;
   padding-bottom: 7px; }
 
-/* line 63, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 63, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .docs p {
   line-height: 20px; }
 
-/* line 67, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 67, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .docs a:hover {
   color: #db631b; }
 
-/* line 71, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 71, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .docs a:hover h1 {
   color: #db631b; }
 
-/* line 74, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 74, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .docs a:hover h2 {
   color: #db631b; }
 
-/* line 77, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 77, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .docs a:hover h3 {
   color: #db631b; }
 
-/* line 80, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 80, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .docs a:hover h4 {
   color: #db631b; }
 
-/* line 83, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 83, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .docs a:hover h5 {
   color: #db631b; }
 
-/* line 86, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 86, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .docs a:hover h6 {
   color: #db631b; }
 
-/* line 90, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 90, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 .getting_started_button {
   padding: 10px;
   font-size: 23px;
@@ -91,7 +91,7 @@
   border-radius: 5px;
   color: white; }
 
-/* line 98, /Users/adeponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
+/* line 98, /Users/andrew.deponte/code/reachlocal/boxci-site/source/stylesheets/docs.css.scss */
 a.getting_started_button:hover {
   color: white;
   text-decoration: none;

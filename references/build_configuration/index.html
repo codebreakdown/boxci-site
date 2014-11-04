@@ -213,6 +213,49 @@ versions you would do the following:</p>
   <span class="pi">-</span> <span class="s">2.1.0</span>
   <span class="pi">-</span> <span class="s">1.9.3-p327</span>
 </pre>
+<h2 id="obtaining-build-artifacts">Obtaining Build Artifacts</h2>
+
+<p>Build artifacts are an important part of a CI system. BoxCI supports automated
+collection and retrieval of artifacts. It does this by <code>tar</code>&lsquo;ing up a defined
+artifacts directory. By default the artifacts directory is as follows:</p>
+<pre class="highlight plaintext">/tmp/boxci/artifacts
+</pre>
+<p>This default can be overridden by setting the <code>artifact_path</code> option in the
+<code>boxci.yml</code> for the project. An example of this might look as follow:</p>
+<pre class="highlight plaintext">artifact_path: "/vagrant/project/reports"
+</pre>
+<p>When BoxCI runs the build, it will <code>tar</code> up all the artifacts in the currently
+defined <code>artifact_path</code> and download the <code>boxci_artifacts.tar</code> from the build
+node into the current working directory when the <code>boxci test</code> command was run.</p>
+
+<h3 id="build-artifacts-for-test-output">Build Artifacts for Test Output</h3>
+
+<p>A common usage of build artifacts is to collect formatted test files so that
+whatever your various CI system is can parse them and provide additional
+detail. The following <code>.boxci.yml</code> config is an example of this used for
+Bamboo and JUnit file formats for tests inside a Ruby on Rails project.</p>
+<pre class="highlight plaintext">language: ruby
+before_script:
+  - RAILS_ENV=test bundle exec rake db:create
+  - RAILS_ENV=test bundle exec rake db:migrate
+script:
+  - bundle exec rspec --require ci/reporter/rake/rspec_loader --format CI::Reporter::RSpec spec
+  - bundle exec cucumber -r ci/reporter/rake/cucumber_loader features/ --tags ~@quarantine --format CI::Reporter::Cucumber
+after_script:
+  - mv spec/reports/*.xml reports/
+  - mv features/reports/*.xml reports/
+artifact_path: "/vagrant/project/reports"
+</pre>
+<p>If we look at the above example we can see that it is overriding the artifact
+directory using the <code>artifact_path</code> option. Beyond that, we can see that there
+are a few commands outlined in the <code>after_script</code> section of the <code>.boxci.yml</code>
+that move the respective JUnit test output files to the artifacts path.</p>
+
+<p>The above facilitates BoxCI gathering all the JUnit files <code>tar</code>&#39;ing them up
+and returning them as the <code>boxci_artifacts.tar</code> file. This allows the Bamboo
+build task to extract the <code>tar</code> and parse the JUnit files, giving you the
+detail you would like in your test output.</p>
+
           </div>
 
           <aside class="col-sm-3 col-sm-offset-1">
